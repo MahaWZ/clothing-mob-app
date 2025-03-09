@@ -11,11 +11,33 @@ import {
   Modal 
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
 
 const HomeScreen = () => {
   const [menuVisible, setMenuVisible] = useState(false);
 
   const menuItems = ['HOME', 'CATALOG', 'ABOUT US', 'CONTACT US'];
+
+  const bannerData = [
+    {
+      id: '1',
+      image: 'https://images.unsplash.com/photo-1445205170230-053b83016050',
+      title: 'OWN THE UNREPEATABLE',
+      subtitle: 'THIS JACKET IS 1 OF 1'
+    },
+    {
+      id: '2',
+      image: 'https://images.unsplash.com/photo-1445205170230-053b83016051',
+      title: 'NEW COLLECTION',
+      subtitle: 'SUMMER 2024'
+    },
+    {
+      id: '3',
+      image: 'https://images.unsplash.com/photo-1445205170230-053b83016052',
+      title: 'EXCLUSIVE DEALS',
+      subtitle: 'UP TO 50% OFF'
+    }
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -77,6 +99,28 @@ const HomeScreen = () => {
       </View>
 
       <ScrollView>
+        {/* Banner Section */}
+        <View style={styles.bannerContainer}>
+          <ScrollView
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+          >
+            {bannerData.map((item, index) => (
+              <View key={item.id} style={styles.bannerSlide}>
+                <Image 
+                  source={{ uri: item.image }}
+                  style={styles.bannerImage}
+                />
+                <View style={styles.bannerContent}>
+                  <Text style={styles.bannerTitle}>{item.title}</Text>
+                  <Text style={styles.bannerSubtitle}>{item.subtitle}</Text>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+
         {/* Categories Section */}
         <View style={styles.categoriesSection}>
           <Text style={styles.sectionTitle}>Trendy Item</Text>
@@ -119,7 +163,6 @@ const HomeScreen = () => {
   );
 };
 
-// Add these new styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -237,6 +280,40 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 16,
     fontWeight: '500',
+  },
+  bannerContainer: {
+    width: '100%',
+    height: 300,
+  },
+  bannerSlide: {
+    width: Dimensions.get('window').width,
+    height: 300,
+  },
+  bannerImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  bannerContent: {
+    position: 'absolute',
+    bottom: 40,
+    left: 20,
+    right: 20,
+  },
+  bannerTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+  },
+  bannerSubtitle: {
+    fontSize: 24,
+    color: '#fff',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
 });
 
